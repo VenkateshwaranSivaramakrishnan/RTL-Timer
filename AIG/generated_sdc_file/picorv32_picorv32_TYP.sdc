@@ -12,14 +12,14 @@ set_wire_load_model -name 5K_hvratio_1_1 -library NangateOpenCellLibrary
 set_max_transition 0.5 [current_design]
 set_load -pin_load 0.2 [all_outputs]
 set_load -min -pin_load 0.1 [all_outputs]
-create_clock [get_ports clk]  -name CLK_clock  -period 1  -waveform {0 0.25}
+create_clock [get_ports CLK]  -name CLK_clock  -period 1  -waveform {0 0.25}
 set_clock_uncertainty -setup 0.15  [get_clocks CLK_clock]
 set_clock_uncertainty -hold 0.1  [get_clocks CLK_clock]
-group_path -weight 0.1  -name in2out  -from [list [get_ports clk] [get_ports resetn] [all_inputs]] 
+group_path -weight 0.1  -name in2out  -from [list [get_ports CLK] [get_ports RESET] [all_inputs]] 
 set_input_delay -clock CLK_clock  -max 0.05  [all_inputs -no_clocks]
 set_output_delay -clock CLK_clock  -max 0.05  [all_outputs]
 set_clock_groups  -asynchronous -name CLK_clock_others_1  -group [get_clocks   \
 CLK_clock]
-set_input_transition -max 0.2  [get_ports resetn]
-set_input_transition -min 0.2  [get_ports resetn]
+set_input_transition -max 0.2  [get_ports RESET]
+set_input_transition -min 0.2  [get_ports RESET]
 set_input_transition -max 0.2  [all_inputs]

@@ -1,0 +1,9 @@
+{
+    "design_json": "../../design_rtl_timer.json",
+    "rtl_base_path": "~/cse291",
+    "template_ys": "./run_ys_template.ys",
+    "output_base_path": "../..",
+    "sdc_template": "./sdc_template.sdc",
+    "properties": "../../properties.json"
+  }
+  

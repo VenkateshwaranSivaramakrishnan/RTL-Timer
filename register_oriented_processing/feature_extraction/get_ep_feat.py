@@ -1,8 +1,8 @@
 import re, os, time, json, pickle
 from timing_path import timing_path
 
-
-bench_dir = "/home/coguest5/LS-benchmark"
+import pprint
+bench_dir = "../../"
 
 def get_rank(idx, ll):
     l_0 = ll*0
@@ -41,6 +41,7 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
     feat_dict = {}
 
     flow_dir = f"/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/timing_rpt"
+    flow_dir = f"../../dataset_example/netlist/netlist_rpt/"
     sta_rpt_dir = f"{flow_dir}/{design_name}.timing.rpt"
 
     with open (sta_rpt_dir, 'r') as f:
@@ -68,7 +69,7 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
             feat_dict[end] = feat_vec
 
     
-    ep_lst = list(feat_dict.keys())
+    ep_lst = list(feat_dict.keys()) 
     ep_len = len(ep_lst)
 
     feat_dict_final = {}
@@ -82,11 +83,13 @@ def autoRun(bench, design_name, design_top, clk_name, user=None):
         vec.append(rank_percent)
         feat_dict_final[ep] = vec
         
-    
+    pprint.pprint(feat_dict_final)
+
     # print(feat_dict_final)
     # exit()
 
-    with open (f'/home/coguest5/RTL-Timer/dataset/BOG/{cmd}/feat/{design_name}.pkl', 'wb') as f:
+    os.makedirs(f'../../BOG/{cmd}/feat/', exist_ok=True)
+    with open (f'../../BOG/{cmd}/feat/{design_name}.pkl', 'wb') as f:
         pickle.dump(feat_dict_final, f)
 
     
@@ -118,6 +121,7 @@ if __name__ == '__main__':
         design_name = "TinyRocket"
         design_name = ""
         bench_list = ['iscas', 'itc', 'opencores','VexRiscv', 'chipyard', 'riscvcores', 'NVDLA']
+        bench_list = ['Rocket']
         for bench in bench_list:
             run_one_bench(bench, design_data, design_name)
 
